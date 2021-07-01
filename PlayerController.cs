@@ -229,13 +229,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetButton("Jump") && playerStats.player_fuel > 0 && activateJetpack)
         {
-            fireParticles.Play();
-            smokeParticles.emissionRate = 100;
-            jetpackTrigger.enabled = true;
-
-            playerStats.player_fuel -= Time.deltaTime * jetpackConsume;
-
-            body.AddForce(upAxis * Mathf.Clamp(jetpackForce * (playerStats.player_fuel / 100), jetpackForceMin, jetpackForce), ForceMode.Acceleration);
+            Jetpack();
         }
         else 
         {
@@ -251,6 +245,16 @@ public class PlayerController : MonoBehaviour
         {
             activateJetpack = false;
         }
+    }
+    void Jetpack(){
+        fireParticles.Play();
+        smokeParticles.emissionRate = 100;
+        jetpackTrigger.enabled = true;
+
+        playerStats.player_fuel -= Time.deltaTime * jetpackConsume;
+
+        body.AddForce(upAxis * Mathf.Clamp(jetpackForce * (playerStats.player_fuel / 100), jetpackForceMin, jetpackForce), ForceMode.Acceleration);
+
     }
 
     void ClearState()
